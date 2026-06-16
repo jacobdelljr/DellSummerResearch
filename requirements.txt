@@ -8,4 +8,3 @@ tqdm
 jupyter
 ipykernel
 timm
-torchvision
