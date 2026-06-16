@@ -1,6 +1,6 @@
-# Dell Summer Research
+# Interpretable Image Classification Using Convolutional Neural Networks and Vision Transformers
 
-Summer undergraduate research project on interpretable image classification using convolutional neural networks and vision transformer models.
+Summer undergraduate research project focused on image classification, model interpretability, and explainable artificial intelligence.
 
 ## Project Focus
 
@@ -12,12 +12,12 @@ Explainability methods may include Grad-CAM, SHAP, LIME, and saliency maps.
 
 Week 1 focuses on background study and environment setup:
 
-- Review image classification concepts
-- Review CNN and Vision Transformer architectures
-- Review explainable AI methods
-- Set up Python/PyTorch environment
-- Create initial project structure
-- Verify GPU support for PyTorch
+* Review image classification concepts
+* Review CNN and Vision Transformer architectures
+* Review explainable AI methods
+* Set up Python/PyTorch environment
+* Create initial project structure
+* Verify GPU support for PyTorch
 
 ## Project Structure
 
@@ -40,10 +40,6 @@ DellSummerResearch/
 ├── README.md
 └── requirements.txt
 ```
-
-## Data Split Note
-
-The train/validation/test split is professor-defined and will be preserved exactly. This project will not alter the assigned split configuration. All models will use the same split configuration to avoid data leakage and maintain fair comparison.
 
 ## Environment Notes
 
