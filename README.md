@@ -26,7 +26,8 @@ DellSummerResearch/
 ├── src/
 │   ├── __init__.py
 │   ├── config.py
-│   └── data_inspection.py
+│   ├── data_inspection.py
+│   └── hirise_dataset.py
 ├── .gitignore
 ├── README.md
 └── requirements.txt
@@ -80,7 +81,7 @@ The cross-validation split workbook is stored locally in:
 data/splits/HiRise data - cross-validation - 7 versions (version 1).xlsx
 ```
 
-Raw image data, processed data, generated metrics, generated figures, and model files are not tracked by Git.
+Raw image data, processed data, split workbooks, generated metrics, generated figures, and model files are not tracked by Git.
 
 ## Week 1
 
@@ -97,7 +98,7 @@ Work completed:
 
 ## Week 2
 
-Started dataset exploration and validation.
+Completed dataset exploration, validation, preprocessing setup, and initial PyTorch loading.
 
 Work completed:
 - Added reusable dataset inspection code in `src/data_inspection.py`
@@ -106,8 +107,11 @@ Work completed:
 - Confirmed all expected fold/split/class counts match local data
 - Confirmed all scanned images are readable
 - Confirmed image dimensions and mode
+- Added reusable PyTorch dataset/loading code in `src/hirise_dataset.py`
+- Defined preprocessing transforms for pretrained model compatibility
+- Successfully loaded a CV1/fold-1 training batch with PyTorch
 
-Current dataset validation summary:
+Dataset validation summary:
 
 ```text
 Images found: 74,145
@@ -118,8 +122,21 @@ Unreadable images: 0
 Image shape/mode: 227 x 227, grayscale/L
 ```
 
-Next Week 2 tasks:
-- Define preprocessing transforms
-- Create PyTorch Dataset/DataLoader workflow
-- Load and inspect one training batch
-- Prepare for baseline model development
+Preprocessing summary:
+- Convert grayscale images to 3-channel tensors
+- Resize images to 224 x 224
+- Apply ImageNet normalization
+- Apply light augmentation to training data only
+
+DataLoader check:
+
+```text
+Input batch shape: torch.Size([32, 3, 224, 224])
+Label batch shape: torch.Size([32])
+CV1/fold-1 classes: ['crater', 'dark_dune', 'edge']
+```
+
+Next steps:
+- Begin baseline model development
+- Start with a simple pretrained CNN baseline on CV1/fold-1
+- Track training metrics and evaluation results
