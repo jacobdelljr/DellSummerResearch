@@ -1,33 +1,29 @@
 # Interpretable Image Classification Using Convolutional Neural Networks and Vision Transformers
 
-Summer undergraduate research project focused on image classification, model interpretability, and explainable artificial intelligence.
-
-## Project Focus
-
-This project compares CNN-based and transformer-based image classification models and applies explainable AI methods to evaluate model decision-making.
-
-Planned model families include ResNet, EfficientNet, DenseNet, ViT, and Swin. Explainability methods may include Grad-CAM, SHAP, LIME, and saliency maps, with a current emphasis on SHAP.
+Summer undergraduate research project focused on image classification and explainable AI for HiRISE Mars imagery.
 
 ## Project Structure
 
 ```text
 DellSummerResearch/
 ├── data/
-│   ├── raw/          # local image data, not tracked by Git
-│   ├── processed/    # generated/processed data, not tracked by Git
-│   └── splits/       # local split/reference files
+│   ├── raw/           # Local raw dataset files, not tracked by Git
+│   ├── processed/     # Processed data artifacts, not tracked by Git
+│   └── splits/        # Dataset split workbooks and split metadata
 ├── notebooks/
 │   ├── 00_environment_check.ipynb
-│   └── 01_dataset_exploration.ipynb
+│   ├── 01_dataset_exploration.ipynb
+│   └── 02_resnet_baseline.ipynb
 ├── outputs/
-│   ├── figures/
-│   ├── metrics/
-│   └── models/
+│   ├── figures/       # Generated plots and figures
+│   ├── metrics/       # Generated metrics and summaries
+│   └── models/        # Saved model checkpoints, not tracked by Git
 ├── src/
 │   ├── __init__.py
 │   ├── config.py
 │   ├── data_inspection.py
-│   └── hirise_dataset.py
+│   ├── hirise_dataset.py
+│   └── resnet_baseline.py
 ├── .gitignore
 ├── README.md
 └── requirements.txt
@@ -59,7 +55,7 @@ Environment verification is located in:
 notebooks/00_environment_check.ipynb
 ```
 
-Verified setup:
+Verified environment:
 
 ```text
 Torch: 2.11.0+cu128
@@ -67,76 +63,52 @@ CUDA available: True
 GPU: NVIDIA GeForce RTX 3060
 ```
 
-## Data
+## Week 1: Environment Setup
 
-The HiRISE image dataset is stored locally in:
-
-```text
-data/raw/HiRISE Data/
-```
-
-The cross-validation split workbook is stored locally in:
-
-```text
-data/splits/HiRise data - cross-validation - 7 versions (version 1).xlsx
-```
-
-Raw image data, processed data, split workbooks, generated metrics, generated figures, and model files are not tracked by Git.
-
-## Week 1
-
-Completed background study and environment setup.
-
-Work completed:
-- Reviewed image classification concepts
-- Reviewed CNN and Vision Transformer model families
-- Reviewed XAI methods including SHAP, LIME, Grad-CAM, and saliency maps
-- Created initial project structure
-- Set up Conda/PyTorch environment
+Completed:
+- Reviewed project scope and background concepts
+- Set up the Python/PyTorch environment
 - Verified CUDA GPU support
-- Created public GitHub repository
+- Created the initial repository structure
 
-## Week 2
+## Week 2: Dataset Exploration and Preprocessing
 
-Completed dataset exploration, validation, preprocessing setup, and initial PyTorch loading.
-
-Work completed:
-- Added reusable dataset inspection code in `src/data_inspection.py`
-- Added dataset exploration notebook in `notebooks/01_dataset_exploration.ipynb`
-- Validated all seven cross-validation versions against the split workbook
-- Confirmed all expected fold/split/class counts match local data
-- Confirmed all scanned images are readable
-- Confirmed image dimensions and mode
-- Added reusable PyTorch dataset/loading code in `src/hirise_dataset.py`
-- Defined preprocessing transforms for pretrained model compatibility
-- Successfully loaded a CV1/fold-1 training batch with PyTorch
+Completed:
+- Validated the HiRISE folder structure against the split workbook
+- Confirmed all expected image counts matched
+- Confirmed all images were readable
+- Created reusable PyTorch data loading code
 
 Dataset validation summary:
 
 ```text
 Images found: 74,145
 Comparison rows: 300
-Matches: 300
 Mismatches: 0
 Unreadable images: 0
-Image shape/mode: 227 x 227, grayscale/L
+Image format: 227 x 227 grayscale
 ```
 
-Preprocessing summary:
-- Convert grayscale images to 3-channel tensors
-- Resize images to 224 x 224
-- Apply ImageNet normalization
-- Apply light augmentation to training data only
+## Week 3: Baseline Model Development
 
-DataLoader check:
+Completed:
+- Implemented a reusable ResNet-50 baseline
+- Trained on HiRISE CV6/fold-1 using the provided fold structure
+- Evaluated the model with accuracy, classification report, and confusion matrix
+
+Baseline result:
 
 ```text
-Input batch shape: torch.Size([32, 3, 224, 224])
-Label batch shape: torch.Size([32])
-CV1/fold-1 classes: ['crater', 'dark_dune', 'edge']
+Model: ResNet-50
+Train images: 3,053
+Held-out images: 767
+Classes: 6
+Best checkpoint held-out accuracy: 90.74%
+Weighted F1-score: 90.63%
 ```
 
-Next steps:
-- Begin baseline model development
-- Start with a simple pretrained CNN baseline on CV1/fold-1
-- Track training metrics and evaluation results
+## Next Steps
+
+- Use the ResNet-50 baseline for SHAP analysis
+- Compare explanations for correct and incorrect predictions
+- Refine or expand model experiments if needed
